@@ -1,0 +1,79 @@
+﻿<div class="row margin-top-05">
+    <h1>Add / Edit User</h1>
+</div>
+
+<!--<div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>-->
+
+
+<div class="container">
+    <h1>User Form</h1>
+    <form #userForm="ngForm">
+        <div class="form-group">
+            <label for="userName"> User Name </label>
+            <input type="text" class="form-control" id="userName" [(ngModel)]="user.UserName" required name="userName" #userName="ngModel"/>
+            <div *ngIf="userName.errors && (userName.dirty || userName.touched)" class="alert alert-danger">
+                <div [hidden]="!userName.errors.required">
+                    User Name is required
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email"> Email </label>
+            <input type="text" class="form-control" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" id="email" [(ngModel)]="user.EmailId" required name="email" #email="ngModel" />
+            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                <br>
+                <div [hidden]="!email.errors.required">
+                    Email is required
+                </div>
+                <div [hidden]="!email.errors">
+                    Please input a valid email.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Password"> Password </label>
+            <input type="text" class="form-control" id="Password" [(ngModel)]="user.Password" required name="Password" #Password="ngModel" />
+            <div *ngIf="Password.errors && (Password.dirty || Password.touched)" class="alert alert-danger">
+                <div [hidden]="!Password.errors.required">
+                    Password is required
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ContactNumber"> Contact </label>
+            <input type="text" class="form-control" pattern="^(0|[1-9][0-9]*)$" id="ContactNumber" [(ngModel)]="user.ContactNumber" required name="ContactNumber" #ContactNumber="ngModel" />
+            <div *ngIf="ContactNumber.errors && (ContactNumber.dirty || ContactNumber.touched)" class="alert alert-danger">
+                <div [hidden]="!ContactNumber.errors.required">
+                    Contact is required
+                </div>
+                <div [hidden]="!ContactNumber.errors">
+                    Please enter only numbers
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Address"> Address </label>
+            <input type="text" class="form-control" id="Address" [(ngModel)]="user.Address" required name="Address" #Address="ngModel" />
+            <div *ngIf="Address.errors && (Address.dirty || Address.touched)" class="alert alert-danger">
+                <div [hidden]="!Address.errors.required">
+                    Address is required
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Country"> Country </label>
+            <input type="text" class="form-control" id="Country" [(ngModel)]="user.Country" required name="Country" #Country="ngModel" />
+            <div *ngIf="Country.errors && (Country.dirty || Country.touched)" class="alert alert-danger">
+                <div [hidden]="!Country.errors.required">
+                    Country is required
+                </div>
+            </div>
+           
+        </div>
+        <button class="btn btn-primary" [disabled]="!userForm.form.valid" type="submit" (click)="SaveUser()">
+            <span class="glyphicon glyphicon-saved"></span> Save
+        </button>
+    </form>
+</div>
+
+

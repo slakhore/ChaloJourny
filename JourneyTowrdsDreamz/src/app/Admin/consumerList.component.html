@@ -1,0 +1,45 @@
+﻿<!--<consumer-count *ngIf="consumer" [all]="getTotalEmpCount()" 
+                [male]="getTotalMaleEmpCount()" 
+                [female]="getTotalFemaleEmpCount()" 
+                (countRadioButtonSelectionChanged)="onEmployeeCountRadioButtonChange($event)"></consumer-count><br /><br />-->
+<table border="1">
+    <thead>
+
+        <tr>
+            <td>Id</td>
+            <th>Consumer Name</th>
+            <th>Email ID</th>
+            <th>Company Name</th>
+            <th>Contact Person</th>
+            <th>Contact Name</th>
+            <th>Desgination</th>
+            <th> OfficeAddess </th>
+            <th> Country </th>
+            <th> SubscriptionId </th>
+            <th>RoleId</th>             
+        </tr>
+       
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let consumerObject of ConsumerRecord;">
+            <tr>
+                <td>{{consumerObject.ConsumerId}}</td>
+                <td>{{consumerObject.ConsumerName | uppercase}}</td>
+                <td>{{consumerObject.EmailId }}</td>
+                <td>{{consumerObject.CompanyName }}</td>
+                <td>{{consumerObject.ContactPerson}}</td>
+                <td>{{consumerObject.ContactName }}</td>
+                <td>{{consumerObject.Desgination }}</td>
+                <td>{{consumerObject.OfficeAddess }}</td>
+                <td>{{consumerObject.Country }}</td>
+                <td>{{consumerObject.SubscriptionId }}</td>
+                <td>{{consumerObject.RoleId }}</td>
+
+            </tr>
+        </ng-container>
+        <tr *ngIf="!consumer || consumer.length==0">
+            <td colspan="5">No consumer to display</td>
+        </tr>
+    </tbody>
+</table><br />
+

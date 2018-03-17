@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="JourneyTowardsDreamzModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'JourneyTowardsDreamz.dbo.ApplicationTracker' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ApplicationTracker">
+          <Key>
+            <PropertyRef Name="TrackerId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="CreatedDate" />
+            <PropertyRef Name="NagivationURL" />
+          </Key>
+          <Property Name="TrackerId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="NagivationURL" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CategoryMaster">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Consumer">
+          <Key>
+            <PropertyRef Name="ConsumerId" />
+          </Key>
+          <Property Name="ConsumerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConsumerName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ContactPerson" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Designation" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OfficeAddress" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SubscriptionId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="IndustryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IndustryMaster">
+          <Key>
+            <PropertyRef Name="IndustryId" />
+          </Key>
+          <Property Name="IndustryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IndustryName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="RoleMaster">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubscriptionMaster">
+          <Key>
+            <PropertyRef Name="SubscriptionId" />
+          </Key>
+          <Property Name="SubscriptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubscriptionPeriod" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Country" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="VideoTransaction">
+          <Key>
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="VideoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VideoName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="StoragePath" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Consumer__Indust__5441852A">
+          <End Role="IndustryMaster" Type="Self.IndustryMaster" Multiplicity="1" />
+          <End Role="Consumer" Type="Self.Consumer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryMaster">
+              <PropertyRef Name="IndustryId" />
+            </Principal>
+            <Dependent Role="Consumer">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Consumer__Subscr__25869641">
+          <End Role="SubscriptionMaster" Type="Self.SubscriptionMaster" Multiplicity="1" />
+          <End Role="Consumer" Type="Self.Consumer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubscriptionMaster">
+              <PropertyRef Name="SubscriptionId" />
+            </Principal>
+            <Dependent Role="Consumer">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__RoleId__2C3393D0">
+          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VideoTran__Categ__33D4B598">
+          <End Role="CategoryMaster" Type="Self.CategoryMaster" Multiplicity="1" />
+          <End Role="VideoTransaction" Type="Self.VideoTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryMaster">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="VideoTransaction">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VideoTran__UserI__32E0915F">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="VideoTransaction" Type="Self.VideoTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="VideoTransaction">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consumer_RoleMaster">
+          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="1" />
+          <End Role="Consumer" Type="Self.Consumer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Consumer">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JourneyTowardsDreamzModelStoreContainer">
+          <EntitySet Name="CategoryMaster" EntityType="Self.CategoryMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Consumer" EntityType="Self.Consumer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IndustryMaster" EntityType="Self.IndustryMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleMaster" EntityType="Self.RoleMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubscriptionMaster" EntityType="Self.SubscriptionMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VideoTransaction" EntityType="Self.VideoTransaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApplicationTracker" EntityType="Self.ApplicationTracker" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ApplicationTracker].[TrackerId] AS [TrackerId], 
+    [ApplicationTracker].[UserId] AS [UserId], 
+    [ApplicationTracker].[CreatedDate] AS [CreatedDate], 
+    [ApplicationTracker].[ModifiedDate] AS [ModifiedDate], 
+    [ApplicationTracker].[NagivationURL] AS [NagivationURL]
+    FROM [dbo].[ApplicationTracker] AS [ApplicationTracker]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Consumer__Indust__5441852A" Association="Self.FK__Consumer__Indust__5441852A">
+            <End Role="IndustryMaster" EntitySet="IndustryMaster" />
+            <End Role="Consumer" EntitySet="Consumer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Consumer__Subscr__25869641" Association="Self.FK__Consumer__Subscr__25869641">
+            <End Role="SubscriptionMaster" EntitySet="SubscriptionMaster" />
+            <End Role="Consumer" EntitySet="Consumer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__RoleId__2C3393D0" Association="Self.FK__User__RoleId__2C3393D0">
+            <End Role="RoleMaster" EntitySet="RoleMaster" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VideoTran__Categ__33D4B598" Association="Self.FK__VideoTran__Categ__33D4B598">
+            <End Role="CategoryMaster" EntitySet="CategoryMaster" />
+            <End Role="VideoTransaction" EntitySet="VideoTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VideoTran__UserI__32E0915F" Association="Self.FK__VideoTran__UserI__32E0915F">
+            <End Role="User" EntitySet="User" />
+            <End Role="VideoTransaction" EntitySet="VideoTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consumer_RoleMaster" Association="Self.FK_Consumer_RoleMaster">
+            <End Role="RoleMaster" EntitySet="RoleMaster" />
+            <End Role="Consumer" EntitySet="Consumer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JourneyTowardsDreamzModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CategoryMaster">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="VideoTransactions" Relationship="Self.FK__VideoTran__Categ__33D4B598" FromRole="CategoryMaster" ToRole="VideoTransaction" />
+        </EntityType>
+        <EntityType Name="Consumer">
+          <Key>
+            <PropertyRef Name="ConsumerId" />
+          </Key>
+          <Property Name="ConsumerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConsumerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContactPerson" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OfficeAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SubscriptionId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="IndustryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="IndustryMaster" Relationship="Self.FK__Consumer__Indust__5441852A" FromRole="Consumer" ToRole="IndustryMaster" />
+          <NavigationProperty Name="SubscriptionMaster" Relationship="Self.FK__Consumer__Subscr__25869641" FromRole="Consumer" ToRole="SubscriptionMaster" />
+          <NavigationProperty Name="RoleMaster" Relationship="Self.FK_Consumer_RoleMaster" FromRole="Consumer" ToRole="RoleMaster" />
+        </EntityType>
+        <EntityType Name="IndustryMaster">
+          <Key>
+            <PropertyRef Name="IndustryId" />
+          </Key>
+          <Property Name="IndustryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IndustryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Consumers" Relationship="Self.FK__Consumer__Indust__5441852A" FromRole="IndustryMaster" ToRole="Consumer" />
+        </EntityType>
+        <EntityType Name="RoleMaster">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Consumers" Relationship="Self.FK_Consumer_RoleMaster" FromRole="RoleMaster" ToRole="Consumer" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__User__RoleId__2C3393D0" FromRole="RoleMaster" ToRole="User" />
+        </EntityType>
+        <EntityType Name="SubscriptionMaster">
+          <Key>
+            <PropertyRef Name="SubscriptionId" />
+          </Key>
+          <Property Name="SubscriptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubscriptionPeriod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Consumers" Relationship="Self.FK__Consumer__Subscr__25869641" FromRole="SubscriptionMaster" ToRole="Consumer" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="RoleMaster" Relationship="Self.FK__User__RoleId__2C3393D0" FromRole="User" ToRole="RoleMaster" />
+          <NavigationProperty Name="VideoTransactions" Relationship="Self.FK__VideoTran__UserI__32E0915F" FromRole="User" ToRole="VideoTransaction" />
+        </EntityType>
+        <EntityType Name="VideoTransaction">
+          <Key>
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="VideoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VideoName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="StoragePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CategoryMaster" Relationship="Self.FK__VideoTran__Categ__33D4B598" FromRole="VideoTransaction" ToRole="CategoryMaster" />
+          <NavigationProperty Name="User" Relationship="Self.FK__VideoTran__UserI__32E0915F" FromRole="VideoTransaction" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ApplicationTracker">
+          <Key>
+            <PropertyRef Name="TrackerId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="CreatedDate" />
+            <PropertyRef Name="NagivationURL" />
+          </Key>
+          <Property Name="TrackerId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="NagivationURL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__VideoTran__Categ__33D4B598">
+          <End Role="CategoryMaster" Type="Self.CategoryMaster" Multiplicity="1" />
+          <End Role="VideoTransaction" Type="Self.VideoTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryMaster">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="VideoTransaction">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Consumer__Indust__5441852A">
+          <End Role="IndustryMaster" Type="Self.IndustryMaster" Multiplicity="1" />
+          <End Role="Consumer" Type="Self.Consumer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IndustryMaster">
+              <PropertyRef Name="IndustryId" />
+            </Principal>
+            <Dependent Role="Consumer">
+              <PropertyRef Name="IndustryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Consumer__Subscr__25869641">
+          <End Role="SubscriptionMaster" Type="Self.SubscriptionMaster" Multiplicity="1" />
+          <End Role="Consumer" Type="Self.Consumer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubscriptionMaster">
+              <PropertyRef Name="SubscriptionId" />
+            </Principal>
+            <Dependent Role="Consumer">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consumer_RoleMaster">
+          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="1" />
+          <End Role="Consumer" Type="Self.Consumer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Consumer">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__RoleId__2C3393D0">
+          <End Role="RoleMaster" Type="Self.RoleMaster" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RoleMaster">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VideoTran__UserI__32E0915F">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="VideoTransaction" Type="Self.VideoTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="VideoTransaction">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JourneyTowardsDreamzEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CategoryMasters" EntityType="Self.CategoryMaster" />
+          <EntitySet Name="Consumers" EntityType="Self.Consumer" />
+          <EntitySet Name="IndustryMasters" EntityType="Self.IndustryMaster" />
+          <EntitySet Name="RoleMasters" EntityType="Self.RoleMaster" />
+          <EntitySet Name="SubscriptionMasters" EntityType="Self.SubscriptionMaster" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="VideoTransactions" EntityType="Self.VideoTransaction" />
+          <EntitySet Name="ApplicationTrackers" EntityType="Self.ApplicationTracker" />
+          <AssociationSet Name="FK__VideoTran__Categ__33D4B598" Association="Self.FK__VideoTran__Categ__33D4B598">
+            <End Role="CategoryMaster" EntitySet="CategoryMasters" />
+            <End Role="VideoTransaction" EntitySet="VideoTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Consumer__Indust__5441852A" Association="Self.FK__Consumer__Indust__5441852A">
+            <End Role="IndustryMaster" EntitySet="IndustryMasters" />
+            <End Role="Consumer" EntitySet="Consumers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Consumer__Subscr__25869641" Association="Self.FK__Consumer__Subscr__25869641">
+            <End Role="SubscriptionMaster" EntitySet="SubscriptionMasters" />
+            <End Role="Consumer" EntitySet="Consumers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consumer_RoleMaster" Association="Self.FK_Consumer_RoleMaster">
+            <End Role="RoleMaster" EntitySet="RoleMasters" />
+            <End Role="Consumer" EntitySet="Consumers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__RoleId__2C3393D0" Association="Self.FK__User__RoleId__2C3393D0">
+            <End Role="RoleMaster" EntitySet="RoleMasters" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VideoTran__UserI__32E0915F" Association="Self.FK__VideoTran__UserI__32E0915F">
+            <End Role="User" EntitySet="Users" />
+            <End Role="VideoTransaction" EntitySet="VideoTransactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JourneyTowardsDreamzModelStoreContainer" CdmEntityContainer="JourneyTowardsDreamzEntities">
+          <EntitySetMapping Name="CategoryMasters">
+            <EntityTypeMapping TypeName="JourneyTowardsDreamzModel.CategoryMaster">
+              <MappingFragment StoreEntitySet="CategoryMaster">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Consumers">
+            <EntityTypeMapping TypeName="JourneyTowardsDreamzModel.Consumer">
+              <MappingFragment StoreEntitySet="Consumer">
+                <ScalarProperty Name="ConsumerId" ColumnName="ConsumerId" />
+                <ScalarProperty Name="ConsumerName" ColumnName="ConsumerName" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="OfficeAddress" ColumnName="OfficeAddress" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndustryMasters">
+            <EntityTypeMapping TypeName="JourneyTowardsDreamzModel.IndustryMaster">
+              <MappingFragment StoreEntitySet="IndustryMaster">
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="IndustryName" ColumnName="IndustryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleMasters">
+            <EntityTypeMapping TypeName="JourneyTowardsDreamzModel.RoleMaster">
+              <MappingFragment StoreEntitySet="RoleMaster">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubscriptionMasters">
+            <EntityTypeMapping TypeName="JourneyTowardsDreamzModel.SubscriptionMaster">
+              <MappingFragment StoreEntitySet="SubscriptionMaster">
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+                <ScalarProperty Name="SubscriptionPeriod" ColumnName="SubscriptionPeriod" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="JourneyTowardsDreamzModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VideoTransactions">
+            <EntityTypeMapping TypeName="JourneyTowardsDreamzModel.VideoTransaction">
+              <MappingFragment StoreEntitySet="VideoTransaction">
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+                <ScalarProperty Name="VideoName" ColumnName="VideoName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="StoragePath" ColumnName="StoragePath" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplicationTrackers">
+            <EntityTypeMapping TypeName="JourneyTowardsDreamzModel.ApplicationTracker">
+              <MappingFragment StoreEntitySet="ApplicationTracker">
+                <ScalarProperty Name="TrackerId" ColumnName="TrackerId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="NagivationURL" ColumnName="NagivationURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
